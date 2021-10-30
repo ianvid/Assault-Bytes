@@ -1,0 +1,9 @@
+﻿  dllmain.cpp
+dllmain.obj : error LNK2001: unresolved external symbol glfwSwapBuffers
+dllmain.obj : error LNK2001: unresolved external symbol glfwTerminate
+dllmain.obj : error LNK2001: unresolved external symbol glfwPollEvents
+dllmain.obj : error LNK2001: unresolved external symbol glfwInit
+dllmain.obj : error LNK2001: unresolved external symbol glfwCreateWindow
+dllmain.obj : error LNK2001: unresolved external symbol glfwMakeContextCurrent
+dllmain.obj : error LNK2001: unresolved external symbol glfwWindowShouldClose
+D:\Todo NO BORRAR\Proyectos\vs c++\Pruebas\test19\x64\Release\test19.dll : fatal error LNK1120: 7 unresolved externals

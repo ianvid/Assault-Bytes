@@ -1,0 +1,6 @@
+﻿  dllmain.cpp
+C:\Users\ian\Desktop\1cheat\test19\headers el pepe\work.h(78,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ian\Desktop\1cheat\test19\headers el pepe\work.h(89,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ian\Desktop\1cheat\test19\headers el pepe\work.h(100,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ian\Desktop\1cheat\test19\headers el pepe\work.h(111,20): warning C4018: '<': signed/unsigned mismatch
+  test19.vcxproj -> C:\Users\ian\Desktop\1cheat\test19\Debug\test19.dll
