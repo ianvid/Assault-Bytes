@@ -12,6 +12,7 @@ namespace pointers {
 	int* localhealth = (int*)(*localplayer + 0xF8);
 	float* localRecoilMultiplier = (float*)(modulebase1 + 0xEE444);
 	float* localKickMultiplier = (float*)(modulebase1 + 0xEE3F8);
+	int* localgrenades = (int*)(*localplayer + 0x158);
 	//code caves
 	int* localspeedCAVE = (int*)(modulebase1 + 0x12677);
 	float* localjumpPowerCAVE = (float*)(modulebase1 + 0x1267B);
@@ -22,6 +23,7 @@ namespace pointers {
 	uintptr_t asmSuperjump = (modulebase1 + 0x5B318);
 	uintptr_t asmMovility = (modulebase1 + 0x5B072);
 	uintptr_t asmGrenades = (modulebase1 + 0x63378);
+	uintptr_t asmRapidfire = (modulebase1 + 0x637E4);
 
 }
 

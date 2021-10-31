@@ -25,6 +25,8 @@ DWORD comehookSuperjump = asmSuperjump +0x6;
 DWORD comehookminimap = asmMinimap + 0x6;
 DWORD comehookmap = asmMap + 0x6;
 DWORD comehookmovility = asmMovility + 0x6;
+DWORD comehookgrenades = asmGrenades + 0x5;
+DWORD comehookRapidfire = asmRapidfire + 0x5;
 
 
 void __declspec(naked) hookSpeedHack() {
@@ -96,6 +98,31 @@ void __declspec(naked) unhookmovility() {
         fld dword ptr[edi]
         mov edi, 0
         jmp[comehookmovility]
+    }
+}
+void __declspec(naked) hookGrenades() {
+    __asm {
+        jmp[comehookgrenades]
+    }
+}
+void __declspec(naked) unhookGrenades() {
+    __asm {
+        dec[eax]
+        mov eax, [esi + 0x0C]
+        jmp[comehookgrenades]
+    }
+}
+void __declspec(naked) hookRapidfire() {
+    __asm {
+        mov esi, [esi + 0x14]
+        jmp[comehookRapidfire]
+    }
+}
+void __declspec(naked) unhookRapidfire() {
+    __asm {
+        mov [edx],ecx
+        mov esi, [esi + 0x14]
+        jmp[comehookRapidfire]
     }
 }
 

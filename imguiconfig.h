@@ -15,8 +15,9 @@ static float jumpPower = 2;
 
 //BOOLS ------------------------------------------------------------------------------------------------
 bool menuVisible = true;
-//bool speedhackIni = false;
 bool jumppowerini = false;
+
+bool caca = false;
 //BOOLS END------------------------------------------------------------------------------------------------
 
 int createwindowandconfigimgui() {
@@ -133,10 +134,6 @@ int createwindowandconfigimgui() {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localspeedCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
                 *localspeedCAVE = playerspeed;
-                //if (!speedhackIni) {
-                //    speedhackIni = true;
-                //    finalhook(asmSpeed, 6, hookSpeedHack);
-                //}
                 if (playerspeed == 1) {
                     finalhook(asmSpeed, 6, unhookSpeedHack);
                 }
@@ -144,6 +141,8 @@ int createwindowandconfigimgui() {
                     finalhook(asmSpeed, 6, hookSpeedHack);
                 }
             }
+            ImGui::Spacing();
+
             if (ImGui::SliderFloat("Jump power", &jumpPower, 2, 10)) {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localjumpPowerCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
@@ -172,6 +171,25 @@ int createwindowandconfigimgui() {
                 finalhook(asmMovility, 6, unhookmovility);
             }
             ImGui::Spacing();
+            if (ImGui::Button("Enable muslim mode (grenades)")) {
+                *localgrenades = 5;
+                finalhook(asmGrenades, 5, hookGrenades);
+            }
+            ImGui::Spacing();
+
+            if (ImGui::Button("Disable muslim mode (grenades)")) {
+                finalhook(asmGrenades, 5, unhookGrenades);
+            }
+            ImGui::Spacing();
+            if (ImGui::Button("Enable rapidfire")) {
+                finalhook(asmRapidfire, 5, hookRapidfire);
+            }
+            ImGui::Spacing();
+
+            if (ImGui::Button("Disable rapidfire")) {
+                finalhook(asmRapidfire, 5, unhookRapidfire);
+            }
+            ImGui::Spacing();
             if (ImGui::Button("Enable accuracy mode")) {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localRecoilMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
@@ -187,6 +205,17 @@ int createwindowandconfigimgui() {
                 *localRecoilMultiplier = 0.001000000047;
                 *localKickMultiplier = -0.009999999776;
             }
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::Spacing();
+           
+            if (ImGui::Checkbox("poronga",&caca)) {
+                printf("nugga\n");
+            }
+
         }
 
         // Rendering

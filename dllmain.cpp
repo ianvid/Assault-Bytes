@@ -4,15 +4,15 @@
 DWORD WINAPI MainActivity(HMODULE hModule) {
     
 
-    //AllocConsole();
-    //FILE* f;
-    //freopen_s(&f, "CONOUT$", "w", stdout);
+    AllocConsole();
+    FILE* f;
+    freopen_s(&f, "CONOUT$", "w", stdout);
     
     DWORD procID = getPID2(L"ac_client.exe");
     createwindowandconfigimgui();
     
-    //FreeConsole();
-    //fclose(f);
+    FreeConsole();
+    fclose(f);
     FreeLibraryAndExitThread(hModule, 0);
 }
 
