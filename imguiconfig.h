@@ -15,7 +15,7 @@ static float jumpPower = 2;
 
 //BOOLS ------------------------------------------------------------------------------------------------
 bool menuVisible = true;
-bool speedhackIni = false;
+//bool speedhackIni = false;
 bool jumppowerini = false;
 //BOOLS END------------------------------------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ int createwindowandconfigimgui() {
                 glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, true);
                 menuVisible = false;
                 SetCursorPos(mouseposx, mouseposy);
-                Sleep(70);
+                Sleep(50);
                 mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
@@ -118,7 +118,7 @@ int createwindowandconfigimgui() {
                 menuVisible = true;
                 mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                Sleep(70);
+                Sleep(50);
                 SetCursorPos(mouseposx, mouseposy);
             }
 
@@ -133,8 +133,14 @@ int createwindowandconfigimgui() {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localspeedCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
                 *localspeedCAVE = playerspeed;
-                if (!speedhackIni) {
-                    speedhackIni = true;
+                //if (!speedhackIni) {
+                //    speedhackIni = true;
+                //    finalhook(asmSpeed, 6, hookSpeedHack);
+                //}
+                if (playerspeed == 1) {
+                    finalhook(asmSpeed, 6, unhookSpeedHack);
+                }
+                else {
                     finalhook(asmSpeed, 6, hookSpeedHack);
                 }
             }

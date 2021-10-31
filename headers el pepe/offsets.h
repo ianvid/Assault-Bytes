@@ -21,6 +21,7 @@ namespace pointers {
 	uintptr_t asmMap = (modulebase1 + 0x9695);
 	uintptr_t asmSuperjump = (modulebase1 + 0x5B318);
 	uintptr_t asmMovility = (modulebase1 + 0x5B072);
+	uintptr_t asmGrenades = (modulebase1 + 0x63378);
 
 }
 
