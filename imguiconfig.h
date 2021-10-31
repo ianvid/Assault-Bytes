@@ -17,7 +17,15 @@ static float jumpPower = 2;
 bool menuVisible = true;
 bool jumppowerini = false;
 
-bool caca = false;
+bool radarhack = false;
+bool reflexhack = false;
+bool rapidfirehack = false;
+bool grenadehack = false;
+bool accuracyhack = false;
+
+
+
+bool box1 = 0, box2 = 0, box3 = 0, box4 = 0, box5 = 0, box6 = 0, box7 = 0, box8 = 0;
 //BOOLS END------------------------------------------------------------------------------------------------
 
 int createwindowandconfigimgui() {
@@ -41,7 +49,6 @@ int createwindowandconfigimgui() {
     //int to center mouse
     int mouseposx = Width / 2;
     int mouseposy = Height / 2;
-
 
     glfwWindowHint(GLFW_FLOATING, true);
     glfwWindowHint(GLFW_RESIZABLE, false);
@@ -142,7 +149,6 @@ int createwindowandconfigimgui() {
                 }
             }
             ImGui::Spacing();
-
             if (ImGui::SliderFloat("Jump power", &jumpPower, 2, 10)) {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localjumpPowerCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
@@ -153,68 +159,77 @@ int createwindowandconfigimgui() {
                 }
             }
             ImGui::Spacing();
-            if (ImGui::Button("Enable radar hack")) {
-                finalhook(asmMinimap, 6, hookminimap);
-                finalhook(asmMap, 6, hookmap);
-            }
-            ImGui::Spacing();
-            if (ImGui::Button("Disable radar hack")) {
-                finalhook(asmMinimap, 6, unhookminimap);
-                finalhook(asmMap, 6, unhookmap);
-            }
-            ImGui::Spacing();
-            if (ImGui::Button("Enable fast reflexes")) {
-                finalhook(asmMovility, 6, hookmovility);
-            }
-            ImGui::Spacing();
-            if (ImGui::Button("Disable fast reflexes")) {
-                finalhook(asmMovility, 6, unhookmovility);
-            }
-            ImGui::Spacing();
-            if (ImGui::Button("Enable muslim mode (grenades)")) {
-                *localgrenades = 5;
-                finalhook(asmGrenades, 5, hookGrenades);
-            }
-            ImGui::Spacing();
+            if (ImGui::Checkbox("Radar hack", &box1)) {
+                if (radarhack) {
+                    radarhack = false;
+                    finalhook(asmMinimap, 6, unhookminimap);
+                    finalhook(asmMap, 6, unhookmap);
+                }
+                else {
+                    radarhack = true;
+                    finalhook(asmMinimap, 6, hookminimap);
+                    finalhook(asmMap, 6, hookmap);
+                }
 
-            if (ImGui::Button("Disable muslim mode (grenades)")) {
-                finalhook(asmGrenades, 5, unhookGrenades);
             }
             ImGui::Spacing();
-            if (ImGui::Button("Enable rapidfire")) {
-                finalhook(asmRapidfire, 5, hookRapidfire);
-            }
-            ImGui::Spacing();
+            if (ImGui::Checkbox("Fast reflexes", &box2)) {
+                if (reflexhack) {
+                    reflexhack = false;
+                    finalhook(asmMovility, 6, unhookmovility);
+                }
+                else {
+                    reflexhack = true;
+                    finalhook(asmMovility, 6, hookmovility);
+                }
 
-            if (ImGui::Button("Disable rapidfire")) {
-                finalhook(asmRapidfire, 5, unhookRapidfire);
             }
             ImGui::Spacing();
-            if (ImGui::Button("Enable accuracy mode")) {
-                DWORD curProtection;
-                VirtualProtect((DWORD*)(localRecoilMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
-                VirtualProtect((DWORD*)(localKickMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
-                *localRecoilMultiplier = 0;
-                *localKickMultiplier = 0;
+            if (ImGui::Checkbox("Muslim mode", &box3)) {
+                if (grenadehack) {
+                    grenadehack = false;
+                    finalhook(asmGrenades, 5, unhookGrenades);
+                }
+                else {
+                    grenadehack = true;
+                    *localgrenades = 5;
+                    finalhook(asmGrenades, 5, hookGrenades);
+                }
+
             }
             ImGui::Spacing();
-            if (ImGui::Button("Disable accuracy mode")) {
-                DWORD curProtection;
-                VirtualProtect((DWORD*)(localRecoilMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
-                VirtualProtect((DWORD*)(localKickMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
-                *localRecoilMultiplier = 0.001000000047;
-                *localKickMultiplier = -0.009999999776;
+            if (ImGui::Checkbox("Rapidfire", &box4)) {
+                if (rapidfirehack) {
+                    rapidfirehack = false;
+                    finalhook(asmRapidfire, 5, unhookRapidfire);
+                }
+                else {
+                    rapidfirehack = true;
+                    finalhook(asmRapidfire, 5, hookRapidfire);
+                }
+
             }
             ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::Spacing();
-           
-            if (ImGui::Checkbox("poronga",&caca)) {
-                printf("nugga\n");
+            if (ImGui::Checkbox("Accuracy mode", &box5)) {
+                if (accuracyhack) {
+                    DWORD curProtection;
+                    VirtualProtect((DWORD*)(localRecoilMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
+                    VirtualProtect((DWORD*)(localKickMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
+                    *localRecoilMultiplier = 0.001000000047;
+                    *localKickMultiplier = -0.009999999776;
+                    accuracyhack = false;
+                }
+                else {
+                    DWORD curProtection;
+                    VirtualProtect((DWORD*)(localRecoilMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
+                    VirtualProtect((DWORD*)(localKickMultiplier), 32, PAGE_EXECUTE_READWRITE, &curProtection);
+                    *localRecoilMultiplier = 0;
+                    *localKickMultiplier = 0;
+                    accuracyhack = true;
+                }
+
             }
+            ImGui::Spacing();
 
         }
 
