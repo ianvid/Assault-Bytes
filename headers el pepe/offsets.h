@@ -13,6 +13,7 @@ namespace pointers {
 	float* localRecoilMultiplier = (float*)(modulebase1 + 0xEE444);
 	float* localKickMultiplier = (float*)(modulebase1 + 0xEE3F8);
 	int* localgrenades = (int*)(*localplayer + 0x158);
+	int* localghost = (int*)(*localplayer + 0x80);
 	//code caves
 	int* localspeedCAVE = (int*)(modulebase1 + 0x12677);
 	float* localjumpPowerCAVE = (float*)(modulebase1 + 0x1267B);

@@ -22,6 +22,7 @@ bool reflexhack = false;
 bool rapidfirehack = false;
 bool grenadehack = false;
 bool accuracyhack = false;
+bool ghosthack = false;
 
 
 
@@ -230,6 +231,17 @@ int createwindowandconfigimgui() {
 
             }
             ImGui::Spacing();
+            if (ImGui::Checkbox("Ghost mode", &box6)) {
+                if (ghosthack) {
+                    ghosthack = false;
+                    *localghost = 1;
+                }
+                else {
+                    ghosthack = true;
+                    *localghost = -1;
+                }
+
+            }
 
         }
 
