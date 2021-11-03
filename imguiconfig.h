@@ -10,7 +10,6 @@ static void glfw_error_callback(int error, const char* description)
 #endif
 
 //ints ------------------------------------------------------------------------------------------------
-static int playerspeed = 1;
 static float jumpPower = 2;
 
 //BOOLS ------------------------------------------------------------------------------------------------
@@ -23,10 +22,11 @@ bool rapidfirehack = false;
 bool grenadehack = false;
 bool accuracyhack = false;
 bool ghosthack = false;
+bool flyhack = false;
 
 
 
-bool box1 = 0, box2 = 0, box3 = 0, box4 = 0, box5 = 0, box6 = 0, box7 = 0, box8 = 0;
+bool box1 = 0, box2 = 0, box3 = 0, box4 = 0, box5 = 0, box6 = 0, box7 = 0, box8 = 0, box9 = 0, box10 = 0;
 //BOOLS END------------------------------------------------------------------------------------------------
 
 int createwindowandconfigimgui() {
@@ -56,7 +56,7 @@ int createwindowandconfigimgui() {
     glfwWindowHint(GLFW_MAXIMIZED, true);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
 
-    GLFWwindow* window = glfwCreateWindow(Width, Height, "AssaultBytes", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(Width, Height, "Sublime Text 4", NULL, NULL);
     if (window == NULL) {
         return 1;
     }
@@ -124,10 +124,10 @@ int createwindowandconfigimgui() {
             }
             else {
                 glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, false);
-                menuVisible = true;
                 mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 Sleep(50);
+                menuVisible = true;
                 SetCursorPos(mouseposx, mouseposy);
             }
 
@@ -137,20 +137,8 @@ int createwindowandconfigimgui() {
 
         if (menuVisible) {
             ImGui::Begin("AssaultBytes V0.0 menu");
-
-            if (ImGui::SliderInt("Player Speed", &playerspeed, 1, 10)) {
-                DWORD curProtection;
-                VirtualProtect((DWORD*)(localspeedCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
-                *localspeedCAVE = playerspeed;
-                if (playerspeed == 1) {
-                    finalhook(asmSpeed, 6, unhookSpeedHack);
-                }
-                else {
-                    finalhook(asmSpeed, 6, hookSpeedHack);
-                }
-            }
             ImGui::Spacing();
-            if (ImGui::SliderFloat("Jump power", &jumpPower, 2, 10)) {
+            if (ImGui::SliderFloat("Jump power", &jumpPower, 2, 6)) {
                 DWORD curProtection;
                 VirtualProtect((DWORD*)(localjumpPowerCAVE), 32, PAGE_EXECUTE_READWRITE, &curProtection);
                 *localjumpPowerCAVE = jumpPower;
@@ -165,11 +153,19 @@ int createwindowandconfigimgui() {
                     radarhack = false;
                     finalhook(asmMinimap, 6, unhookminimap);
                     finalhook(asmMap, 6, unhookmap);
+                    finalhook(asmMinimapFFA, 6, unhookminimapFFA);
+                    finalhook(asmMinimapFFA2, 6, unhookminimapFFA2);
+                    finalhook(asmMapFFA, 5, unhookmapFFA);
+                    finalhook(asmMapFFA2, 5, unhookmapFFA2);
                 }
                 else {
                     radarhack = true;
                     finalhook(asmMinimap, 6, hookminimap);
                     finalhook(asmMap, 6, hookmap);
+                    finalhook(asmMinimapFFA, 6, hookminimapFFA);
+                    finalhook(asmMinimapFFA2, 6, hookminimapFFA2);
+                    finalhook(asmMapFFA, 5, hookmapFFA);
+                    finalhook(asmMapFFA2, 5, hookmapFFA2);
                 }
 
             }
@@ -231,14 +227,19 @@ int createwindowandconfigimgui() {
 
             }
             ImGui::Spacing();
-            if (ImGui::Checkbox("Ghost mode", &box6)) {
-                if (ghosthack) {
-                    ghosthack = false;
-                    *localghost = 1;
+            if (ImGui::Checkbox("Fly mode", &box7)) {
+                if (flyhack) {
+                    flyhack = false;
+                    *localfly = 0;
+
                 }
                 else {
-                    ghosthack = true;
-                    *localghost = -1;
+
+                    flyhack = true;
+                    *localfly = 4;
+
+
+
                 }
 
             }

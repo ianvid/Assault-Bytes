@@ -1,18 +1,27 @@
 #include "headers el pepe/allincludes.h"
 #include "imguiconfig.h"
 
+void sayhi() {
+    typedef void(*consoleoutput)(char* input);
+    consoleoutput consoleoutput1 = (consoleoutput)(modulebase + 0X6B060);
+    char a[300] = "Welcome to Assault Bytes you motherf***";
+    consoleoutput1(a);
+}
+
+
 DWORD WINAPI MainActivity(HMODULE hModule) {
     
     DWORD modulebase2 = (DWORD)GetModuleHandle(L"ac_client.exe");
-    //AllocConsole();
-    //FILE* f;
-    //freopen_s(&f, "CONOUT$", "w", stdout);
+    bool console = false;
 
-    typedef void(*consoleoutput)(char* input);
-    consoleoutput consoleoutput1 = (consoleoutput)(modulebase+ 0X6B060);
-    char a[300] = "Welcome to Assault Bytes you motherf***";
-    consoleoutput1(a);
+    if (console) {
+        AllocConsole();
+        FILE* f;
+        freopen_s(&f, "CONOUT$", "w", stdout);
+    }
 
+
+    sayhi();
     createwindowandconfigimgui();
     
     //FreeConsole();

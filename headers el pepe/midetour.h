@@ -20,31 +20,18 @@ bool Hook(void* toHook, void* myfunct, int len) {
 //assembler-----------------------------------------------------------------------
 
 //estos son los comebacks (jump back)
-DWORD comehookSpeedHack = asmSpeed +0x6;
 DWORD comehookSuperjump = asmSuperjump +0x6;
 DWORD comehookminimap = asmMinimap + 0x6;
+DWORD comehookminimapFFA = asmMinimapFFA + 0x6;
+DWORD comehookminimapFFA2 = asmMinimapFFA2 + 0x6;
 DWORD comehookmap = asmMap + 0x6;
+DWORD comehookmapFFA = asmMapFFA + 0x5;
+DWORD comehookmapFFA2 = asmMapFFA2 + 0x5;
 DWORD comehookmovility = asmMovility + 0x6;
 DWORD comehookgrenades = asmGrenades + 0x5;
 DWORD comehookRapidfire = asmRapidfire + 0x5;
+DWORD comehookTriggerbot = asmTriggerbot + 0x6;
 
-
-void __declspec(naked) hookSpeedHack() {
-    __asm {
-        mov eax, modulebase
-        add eax, 0x12677
-        mov eax, [eax]
-        mov[edx + 0x80], eax
-        jmp[comehookSpeedHack]
-    }
-}
-void __declspec(naked) unhookSpeedHack() {
-    __asm {
-        add edx, 0x80
-        mov[edx], al
-        jmp[comehookSpeedHack]
-    }
-}
 void __declspec(naked) hookminimap() { //minimap
     __asm {
         mov eax, 0x10f4f4
@@ -61,6 +48,36 @@ void __declspec(naked) unhookminimap() { //minimap
         jmp[comehookminimap]
     }
 }
+void __declspec(naked) hookminimapFFA() { //minimap
+    __asm {
+        mov ebx,0x7
+        jmp[comehookminimapFFA]
+    }
+}
+void __declspec(naked) unhookminimapFFA() { //minimap
+    __asm {
+        PUSH eax
+        mov eax, modulebase
+        mov ebx, [eax + 0x10F49C]
+        POP eax
+        jmp[comehookminimapFFA]
+    }
+}
+void __declspec(naked) hookminimapFFA2() { //minimap
+    __asm {
+        mov ebx,0x7
+        jmp[comehookminimapFFA2]
+    }
+}
+void __declspec(naked) unhookminimapFFA2() { //minimap
+    __asm {
+        PUSH eax
+        mov eax, modulebase
+        mov ebx, [eax + 0x10F49C]
+        POP eax
+        jmp[comehookminimapFFA2]
+    }
+}
 void __declspec(naked) hookmap() { //big map
     __asm {
         mov ecx, 0x10f4f4
@@ -75,6 +92,36 @@ void __declspec(naked) unhookmap() { //big map
     __asm {
         mov ecx, [esi + 0x32C]
         jmp[comehookmap]
+    }
+}
+void __declspec(naked) hookmapFFA() { //big map
+    __asm {
+        mov eax, 7
+        jmp[comehookmapFFA]
+    }
+}
+void __declspec(naked) unhookmapFFA() { //big map
+    __asm {
+        PUSH ebx
+        mov ebx, modulebase
+        mov eax, [ebx + 0x10F49C]
+        POP ebx
+        jmp[comehookmapFFA]
+    }
+}
+void __declspec(naked) hookmapFFA2() { //big map
+    __asm {
+        mov eax, 7
+        jmp[comehookmapFFA2]
+    }
+}
+void __declspec(naked) unhookmapFFA2() { //big map
+    __asm {
+        PUSH ebx
+        mov ebx, modulebase
+        mov eax, [ebx + 0x10F49C]
+        POP ebx
+        jmp[comehookmapFFA2]
     }
 }
 void __declspec(naked) hookSuperjump() {
@@ -125,6 +172,21 @@ void __declspec(naked) unhookRapidfire() {
         jmp[comehookRapidfire]
     }
 }
+
+/*void __declspec(naked) hooktriggerbot() {
+    __asm {
+        mov ebx, 0xE2A634
+        mov[ebx], 0x1
+        mov[ebx], 0x0
+
+
+        mov ebx, modulebase
+        add ebx, 0x10F4F4
+        mov ebx, [ebx]
+        cmp eax, [ebx + 0x000032C]
+        jmp[comehookTriggerbot]
+    }
+}*/
 
 
 void finalhook(DWORD hookaddress, int lenght, void* myfunct) {
