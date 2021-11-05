@@ -4,8 +4,11 @@ uintptr_t modulebase1 = (uintptr_t)GetModuleHandle(L"ac_client.exe");
 
 
 namespace pointers {
-	//variables
+	//pointers
+	uintptr_t* entityList = (uintptr_t*)(modulebase1 + 0x10f4f8);
 	uintptr_t* localplayer = (uintptr_t*)(modulebase1 + 0x10f4f4);
+	//variables
+	int* players = (int*)(modulebase1 + 0x10F500);
 	float* localxpos = (float*)(*localplayer + 0x34);
 	float* localypos = (float*)(*localplayer + 0x38);
 	float* localzpos = (float*)(*localplayer + 0x3C);

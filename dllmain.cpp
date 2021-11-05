@@ -8,24 +8,42 @@ void sayhi() {
     consoleoutput1(a);
 }
 
+/*class Entity //this class was made for test purposes. credits to ReClass
+{
+public:
+    char pad_0000[248]; //0x0000
+    int32_t Health; //0x00F8
+    char pad_00FC[72]; //0x00FC
+}; //Size: 0x0144
 
+class Base
+{
+public:
+    char pad_0000[4]; //0x0000
+    class Entity* EntityArray[32]; //0x0004
+    char pad_0084[320]; //0x0084
+}; //Size: 0x01C4
+
+Base* base = *(Base**)(modulebase2 + 0x10f4f8);
+
+for (int i = 0; i < *players - 1; i++) {
+    printf("bot - %d -  health is %d\n", i, base->EntityArray[i]->Health);
+    Sleep(50);
+}*/
 DWORD WINAPI MainActivity(HMODULE hModule) {
     
     DWORD modulebase2 = (DWORD)GetModuleHandle(L"ac_client.exe");
-    bool console = false;
+    AllocConsole(); FILE* f; freopen_s(&f, "CONOUT$", "w", stdout);
 
-    if (console) {
-        AllocConsole();
-        FILE* f;
-        freopen_s(&f, "CONOUT$", "w", stdout);
-    }
-
-
+    
     sayhi();
     createwindowandconfigimgui();
+
+    system("pause");
     
-    //FreeConsole();
-    //fclose(f);
+    FreeConsole(); fclose(f);
+ 
+
     FreeLibraryAndExitThread(hModule, 0);
 }
 
